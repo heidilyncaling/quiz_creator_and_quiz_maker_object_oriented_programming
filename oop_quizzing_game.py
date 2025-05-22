@@ -18,3 +18,21 @@ class QuizQuestion:
 
     def correct_answer_text(self):
         return f"{self.answer}: {self.options[self.answer]}"
+    
+# class handle the data.txt
+class QuizLoader:
+    def load_from_file(self, file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as file:
+                content = file.read().strip()
+        except FileNotFoundError:
+            print("File not found.")
+            return []
+
+        blocks = content.split("-" * 50)
+        questions = []
+
+        for block in blocks:
+            lines = block.strip().splitlines()
+            if len(lines) >= 6:
+                question
