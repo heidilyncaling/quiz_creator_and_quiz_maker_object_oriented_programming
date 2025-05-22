@@ -94,3 +94,20 @@ class QuizCreatorGame:
             "C:/Users/HANZ JOSEPH CALING/Downloads/sounds/from_the_start.mp3"
         )
         self.questions = []
+
+    def start_screen(self):
+        self.sound.play_music()
+        running = True
+        while running:
+            screen.fill(PURPLE)
+            self.ui.draw_text("Welcome to Quiz Creator Game!", BIG_FONT, WHITE, WIDTH // 2, HEIGHT // 3)
+            self.ui.draw_text("Click to Start!", FONT, WHITE, WIDTH // 2, HEIGHT // 1.5)
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    self.sound.play_ding()
+                    running = False
