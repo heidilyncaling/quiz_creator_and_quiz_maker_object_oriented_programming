@@ -1,1 +1,20 @@
-#oop_quizzing_game
+import os
+import random
+
+# class for the questions
+class QuizQuestion:
+    def __init__(self, text, options, answer):
+        self.text = text
+        self.options = options  # dict: {"A": "...", "B": "...", ...}
+        self.answer = answer.upper()
+
+    def display(self, number):
+        print(f"\nQuestion {number}: {self.text}")
+        for key in ["A", "B", "C", "D"]:
+            print(f"{key}. {self.options[key]}")
+
+    def is_correct(self, user_answer):
+        return user_answer.upper() == self.answer
+
+    def correct_answer_text(self):
+        return f"{self.answer}: {self.options[self.answer]}"
