@@ -36,3 +36,38 @@ class QuizLoader:
             lines = block.strip().splitlines()
             if len(lines) >= 6:
                 question
+
+# class, runs the mismong quiz game
+class QuizGame:
+    def __init__(self, questions):
+        self.questions = questions
+        self.score = 0
+
+    def run(self):
+        if not self.questions:
+            print("No valid questions to run.")
+            return
+
+        random.shuffle(self.questions)
+
+        for idx, question in enumerate(self.questions, 1):
+            question.display(idx)
+
+            while True:
+                user_input = input("A/B/C/D or EXIT: ").strip().upper()
+                if user_input == "EXIT":
+                    print("\nExiting. Thanks for playing!")
+                    print(f"Your score: {self.score}/{idx - 1}")
+                    return
+                if user_input in ["A", "B", "C", "D"]:
+                    break
+                print("Invalid input. Please enter A, B, C, D or EXIT.")
+
+            if question.is_correct(user_input):
+                print("Correct!")
+                self.score += 1
+            else:
+                print(f"Wrong. The correct answer is: {question.correct_answer_text()}")
+
+        print("\nThanks for playing!")
+        print(f"Your score: {self.score}/{len(self.questions)}")
