@@ -138,3 +138,31 @@ class QuizCreatorGame:
 
             q = QuizQuestion(question, options, correct)
             self.questions.append(q)
+
+    def save_to_file(self):
+        with open("quiz_data.txt", "w", encoding="utf-8") as f:
+            for q in self.questions:
+                f.write(q.format())
+        return "quiz_data.txt"
+    
+    def show_end_screen(self, filepath):
+        screen.fill(PURPLE)
+        self.ui.draw_text("Saved to quiz_data.txt", BIG_FONT, WHITE, WIDTH // 2, HEIGHT // 3)
+        pygame.display.flip()
+        pygame.time.wait(1500)
+        os.startfile(filepath)
+        pygame.quit()
+        sys.exit()
+
+    def run(self):
+        self.start_screen()
+        total = int(self.ui.get_input("How many questions will you input?"))
+        self.create_questions(total)
+        path = self.save_to_file()
+        self.show_end_screen(path)
+
+
+# Run the game
+if __name__ == "__main__":
+    game = QuizCreatorGame()
+    game.run()
