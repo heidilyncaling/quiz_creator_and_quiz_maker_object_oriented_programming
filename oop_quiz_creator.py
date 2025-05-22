@@ -84,3 +84,13 @@ class QuizQuestion:
         lines.append(f"Answer: {self.correct}")
         lines.append("-" * 50)
         return "\n".join(lines) + "\n"
+
+# class main game
+class QuizCreatorGame:
+    def __init__(self):
+        self.ui = GameUI(screen)
+        self.sound = SoundManager(
+            "C:/Users/HANZ JOSEPH CALING/Downloads/sounds/ding.wav.mp3",
+            "C:/Users/HANZ JOSEPH CALING/Downloads/sounds/from_the_start.mp3"
+        )
+        self.questions = []
