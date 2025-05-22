@@ -12,3 +12,48 @@ DARK_PURPLE = (100, 0, 150)
 FONT = pygame.font.SysFont("Helvetica", 25)
 BIG_FONT = pygame.font.SysFont("Helvetica", 50)
 
+# screen
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("QUIZ CREATOR GAME")
+
+
+# class game user interface
+class GameUI:
+    def __init__(self, screen):
+        self.screen = screen
+
+    def draw_text(self, text, font, color, x, y, center=True):
+        rendered = font.render(text, True, color)
+        rect = rendered.get_rect(center=(x, y) if center else (x, y))
+        self.screen.blit(rendered, rect)
+
+    def get_input(self, prompt):
+        user_input = ''
+        active = True
+        while active:
+            self.screen.fill(PURPLE)
+            self.draw_text(prompt, FONT, WHITE, WIDTH // 2, HEIGHT // 3)
+            self.draw_text(user_input + '|', FONT, WHITE, WIDTH // 2, HEIGHT // 2)
+            pygame.display.flip()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        active = False
+                    elif event.key == pygame.K_BACKSPACE:
+                        user_input = user_input[:-1]
+                    else:
+                        user_input += event.unicode
+        return user_input.strip()
+
+    def draw_progress_bar(self, current, total):
+        bar_width = 400
+        bar_height = 30
+        progress = int((current / total) * bar_width)
+        pygame.draw.rect(self.screen, WHITE, [150, 400, bar_width, bar_height], 2)
+        pygame.draw.rect(self.screen, DARK_PURPLE, [150, 400, progress, bar_height])
+        percent = f"{int((current / total) * 100)}%"
+        self.draw_text(f"Question {current} of {total} | {percent} completed", FONT, WHITE, WIDTH // 2, 150)
