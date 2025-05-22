@@ -69,3 +69,18 @@ class SoundManager:
 
     def play_music(self):
         pygame.mixer.music.play(-1, 0.0)
+
+# clas questions
+class QuizQuestion:
+    def __init__(self, question, options, correct):
+        self.question = question
+        self.options = options
+        self.correct =  correct
+
+    def format(self):
+        lines = [f"Q: {self.question}"]
+        for label, text in zip(['a', 'b', 'c', 'd'], self.options):
+            lines.append(f"{label}) {text}")
+        lines.append(f"Answer: {self.correct}")
+        lines.append("-" * 50)
+        return "\n".join(lines) + "\n"
