@@ -3,7 +3,7 @@ import pygame
 import sys
 import os
 
-#main quiz creator screen 
+#main quiz creator screen/ allcaps po variable ko rito kasi na-search ko kapag constant all caps daw po
 pygame.init()
 WIDTH, HEIGHT = 800, 600
 WHITE = (255, 255, 255)
@@ -111,3 +111,30 @@ class QuizCreatorGame:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     self.sound.play_ding()
                     running = False
+
+    def create_questions(self, total):
+        for i in range(total):
+            screen.fill(PURPLE)
+            self.ui.draw_text(f"Loading question {i+1} of {total}...", FONT, WHITE, WIDTH // 2, 150)
+            pygame.display.flip()
+            pygame.time.wait(1000)
+
+            screen.fill(PURPLE)
+            self.ui.draw_progress_bar(i + 1, total)
+            pygame.display.flip()
+            pygame.time.wait(1000)
+
+            question = self.ui.get_input("Enter your question:")
+            options = [
+                self.ui.get_input("A."),
+                self.ui.get_input("B."),
+                self.ui.get_input("C."),
+                self.ui.get_input("D.")
+            ]
+
+            correct = ''
+            while correct not in ['A', 'B', 'C', 'D']:
+                correct = self.ui.get_input("Enter answer A/B/C/D:").upper()
+
+            q = QuizQuestion(question, options, correct)
+            self.questions.append(q)
