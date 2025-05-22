@@ -57,3 +57,15 @@ class GameUI:
         pygame.draw.rect(self.screen, DARK_PURPLE, [150, 400, progress, bar_height])
         percent = f"{int((current / total) * 100)}%"
         self.draw_text(f"Question {current} of {total} | {percent} completed", FONT, WHITE, WIDTH // 2, 150)
+
+# class sfx
+class SoundManager:
+    def __init__(self, ding_path, music_path):
+        self.ding = pygame.mixer.Sound(ding_path)
+        pygame.mixer.music.load(music_path)
+
+    def play_ding(self):
+        self.ding.play()
+
+    def play_music(self):
+        pygame.mixer.music.play(-1, 0.0)
