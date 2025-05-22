@@ -71,3 +71,23 @@ class QuizGame:
 
         print("\nThanks for playing!")
         print(f"Your score: {self.score}/{len(self.questions)}")
+
+#main
+def main():
+    default_path = "quiz_data.txt"
+    file_path = default_path
+
+    if not os.path.isfile(file_path):
+        print("Default file not found.")
+        file_path = input("Enter full path to quiz file: ").strip()
+        if not os.path.isfile(file_path):
+            print("Still can't find the file. Exiting.")
+            return
+
+    loader = QuizLoader()  # Create an instance
+    questions = loader.load_from_file(file_path)  # Use instance method
+    game = QuizGame(questions)
+    game.run()
+
+if __name__ == "__main__":
+    main()
